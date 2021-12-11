@@ -1,0 +1,55 @@
+/**FONTS**/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+body{
+    background-color: #000;
+    height: 1270px;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.scene{
+    position: absolute;
+    transform: translateY(var(--translateY));
+    will-change: transform;
+    width: 100%;
+}
+
+.theme{
+    position: absolute;
+    top: 17px;
+    left: 355px;
+    z-index: 1;
+}
+.theme > h1{
+    color: #fff;
+    font-size: 65px;
+    letter-spacing: 4.7px;
+    font-family: system-ui;
+    text-transform: uppercase;
+    text-shadow: 0 2.7px 5px #0000005c;
+}
+
+.textsArea{
+    position: absolute;
+    top: 685px;
+    left: 0;
+    padding: 0 100px;
+    z-index: 2;
+}
+.loremTexts{
+    font-size: 25px;
+    font-family: 'Roboto', sans-serif;
+    line-height: 40px;
+    color: #fff;
+}
+
+.scene:nth-child(5) {
+    padding: 60px 0;
+    z-index: 2;
+}
+.scene:nth-child(6){
+    padding: 50px 0;
+    z-index: 2;
+}

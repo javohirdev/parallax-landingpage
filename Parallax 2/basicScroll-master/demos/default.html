@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+
+	<meta charset="utf-8">
+	<title>basicScroll Demo</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<style>
+
+		html {
+			width: 100%;
+			height: 100%;
+			font-family: sans-serif;
+		}
+
+		body {
+			height: 400vh;
+			margin: 0;
+		}
+
+		.container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+		}
+
+		.container:nth-child(1) { height: 200vh; }
+		.container:nth-child(2) { height: 0; }
+		.container:nth-child(3) { height: 200vh; }
+
+		.box {
+			padding: 1em 2em;
+			margin: 0 .5em;
+			background: #ddd;
+			will-change: transform;
+		}
+
+		.box::before {
+			content: attr(data-timing);
+		}
+
+		.easeBox { transform: translateY(var(--ty)); }
+		.rotateBox { transform: rotate(var(--r)); }
+		.fadeBox { opacity: var(--o); }
+		.directBox { opacity: var(--o); }
+
+	</style>
+
+	<div class="container">
+		<div class="box easeBox" data-timing="sineInOut"></div>
+		<div class="box easeBox" data-timing="backInOut"></div>
+		<div class="box easeBox" data-timing="circIn"></div>
+		<div class="box easeBox" data-timing="quintOut"></div>
+		<div class="box easeBox" data-timing="expoIn"></div>
+	</div>
+
+	<div class="container">
+		<div class="box rotateBox">rotate</div>
+		<div class="box fadeBox">fade</div>
+	</div>
+
+	<div class="container">
+		<div class="box referenceBox">reference</div>
+		<div class="box directBox">direct</div>
+	</div>
+
+	<script src="../dist/basicScroll.min.js"></script>
+
+	<script>
+
+		const easeBoxes = []
+
+		// Create an animation for each ease box. Each with a different timing.
+		document.querySelectorAll('.easeBox').forEach((elem, i) => {
+
+			// Get the timing from the data attribute.
+			// You can also hard-code the timing, but for the demo it's easier this way.
+			const timing = elem.getAttribute('data-timing')
+
+			// Crate an instance for the current element and store the instance in an array.
+			// We start the animation later using the instances from the array.
+			easeBoxes.push(basicScroll.create({
+				elem: elem,
+				from: 'middle-bottom',
+				to: 'bottom-top',
+				direct: true,
+				props: {
+					'--ty': {
+						from: '0',
+						to: '100px',
+						timing: timing
+					}
+				}
+			}))
+
+		})
+
+		const rotateBox = basicScroll.create({
+			elem: document.querySelector('.rotateBox'),
+			from: 'top-middle',
+			to: 'top-top',
+			props: {
+				'--r': {
+					from: '0',
+					to: '1turn'
+				}
+			}
+		})
+
+		const fadeBox = basicScroll.create({
+			elem: document.querySelector('.fadeBox'),
+			from: 'bottom-bottom',
+			to: 'top-middle',
+			inside: (instance, percentage, props) => console.log('fadeBox is animating'),
+			outside: (instance, percentage, props) => console.log('fadeBox is not animating'),
+			props: {
+				'--o': {
+					from: .01,
+					to: .99
+				}
+			}
+		})
+
+		const referenceBox = basicScroll.create({
+			elem: document.querySelector('.referenceBox'),
+			from: 'bottom-bottom',
+			to: 'top-top',
+			direct: document.querySelector('.directBox'),
+			props: {
+				'--o': {
+					from: .01,
+					to: .99
+				}
+			}
+		})
+
+		rotateBox.start()
+		fadeBox.start()
+		referenceBox.start()
+		easeBoxes.forEach((easeBox) => easeBox.start())
+
+	</script>
+
+</html>

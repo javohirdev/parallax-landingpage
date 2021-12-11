@@ -1,0 +1,34 @@
+{
+  "name": "basicscroll",
+  "version": "3.0.4",
+  "authors": [
+    "Tobias Reich <tobias@electerious.com>"
+  ],
+  "description": "Standalone parallax scrolling for mobile and desktop with CSS variables",
+  "main": "dist/basicScroll.min.js",
+  "keywords": [
+    "parallax",
+    "scroll",
+    "scrolling"
+  ],
+  "scripts": {
+    "build": "node build.js"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/electerious/basicScroll",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/electerious/basicScroll.git"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "dependencies": {
+    "eases": "^1.0.8",
+    "parse-unit": "^1.0.1"
+  },
+  "devDependencies": {
+    "rosid-handler-js": "^13.0.0"
+  }
+}
